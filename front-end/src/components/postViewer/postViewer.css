@@ -1,0 +1,43 @@
+.post-viewer{
+     height: 100%;
+     --header-height:60px;
+     position: relative;
+
+     &>.header{
+          height: var(--header-height);
+          border-bottom: 1px solid #eee;
+          display: flex;
+          flex-direction: row;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          background-color: black;
+
+          &>.back{
+               position: absolute;
+               top: 0;
+               left: 0;
+               height: 100%;
+               padding: 10px;
+               font-size: 30px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               cursor: pointer;
+               
+               &:hover{
+                    background-color: #222;
+               }
+          }
+     }
+
+     &>.content{
+          padding: 20px;
+          height: calc(100% - var(--header-height));
+          overflow-y: auto ;
+
+          &>*{
+               margin-bottom: 30px;
+          }
+     }
+}

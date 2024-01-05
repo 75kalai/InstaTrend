@@ -1,0 +1,164 @@
+.navbar {
+     width: 250px;
+     height: 100vh;
+     border-right: var(--border);
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+
+     &>.middle {
+          display: flex;
+          flex-direction: column;
+          padding: 0 12px;
+          gap: 5px;
+
+          &>* {
+               display: flex;
+               flex-direction: row;
+               gap: 20px;
+               align-items: center;
+          }
+     }
+
+     & .list {
+          /* change name to list */
+          padding: 10px 22px;
+          /* margin: 2px 0; */
+          border-radius: 20px;
+          border: 1px solid transparent;
+          cursor: pointer;
+
+          &:hover {
+               /* border: 1px solid #555; */
+               /* box-shadow: inset 4px 3px 10px 4px #777; */
+               background-color: #191919
+          }
+     }
+
+     & .current-tab {
+          background-color: #111;
+          box-shadow: inset 0px 0px 0px 3px #222;
+     }
+
+     &>.bottom {
+          position: relative;
+          padding: 0px 12px 20px;
+
+          &>.settings {
+               display: flex;
+               flex-direction: row;
+               gap: 20px;
+               align-items: center;
+
+          }
+
+          &>.popup-menu {
+               position: absolute;
+               min-width: 200px;
+               z-index: 10;
+               bottom: 90px;
+               border-radius: 25px;
+               padding: 10px;
+               background-color: #222;
+
+
+               &>ul {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    gap: 10px;
+
+                    &>li {
+                         padding: 15px 20px;
+                         border-radius: 17px;
+                         background-color: transparent;
+                         transition: background-color 0.1s;
+                         cursor: pointer;
+                         user-select: none;
+
+                         &:hover {
+                              background-color: #444;
+                         }
+
+                         &.log-out {
+                              color: red;
+                         }
+                    }
+               }
+          }
+     }
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+     /* TABLET VIEW */
+     .navbar {
+          width: 72px;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+          & .list {
+               padding: 10px;
+          }
+
+          &>.middle {
+               display: flex;
+               flex-direction: column;
+
+               & .label {
+                    display: none;
+               }
+          }
+
+          &>.bottom {
+
+               &>.settings {
+                    padding: unset;
+                    margin: unset;
+
+                    &>.label {
+                         display: none;
+                    }
+               }
+
+          }
+     }
+}
+
+@media only screen and (max-width: 750px) {
+     /* MOBILE VIEW */
+
+     .navbar {
+          width: 100%;
+          height: 70px;
+          border-top: var(--border);
+          border-right: none;
+          flex-direction: row;
+          background: linear-gradient(180deg, #585858, black 35%, black);
+
+          &>.top {
+               display: none;
+          }
+
+          & .list {
+               padding: 13px;          }
+
+          & .current-tab{
+               background-color: #1a1a1a;
+               box-shadow: inset 0px 4px 10px 0px #000, inset 0px -4px 8px 0px #333;
+          }
+
+          &>.middle {
+               flex-direction: row;
+               justify-content: space-around;
+               width: 100%;
+          }
+
+          &>.bottom {
+               display: none;
+
+          }
+     }
+}

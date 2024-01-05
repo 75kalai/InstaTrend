@@ -1,0 +1,35 @@
+.modal-overlay{
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     background-color: rgb(35 35 35 / 50%);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 25px;
+     
+     &>.modal{
+          /* width: 50vw; */
+          /* height: 70vh; */
+          min-width: 200px;
+          min-height: 350px;
+          background-color: black;
+          border-radius: 25px;
+          border: 4px dashed rgb(96, 29, 158);
+          outline: 8px solid black;
+          overflow: hidden;
+          padding: 10px;
+          position: relative;
+
+          &>.close-modal{
+               position:absolute;
+               right: 0;
+               top: 0;
+               margin: 10px;
+               font-size: 25px;
+               cursor: pointer;
+          }
+     }
+}

@@ -1,0 +1,155 @@
+:root {
+     --border: 2px solid #505050;
+     --border2: 2px solid #50505077;
+     --white: #d5d5d5;
+
+     --topbarHeight: 80px;
+     --navbarWidthTablet: 72px;
+     --navbarWidthDesktop: 250px;
+     --contentHeight: calc(100vh - var(--topbarHeight) - var(--navbarHeightMobile));
+
+
+     -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+     width: 15px;
+     height: 15px;
+     border-radius: 20px;
+     background-color: transparent;
+}
+
+::-webkit-scrollbar:hover {
+     background-color: #5757573a;
+     ;
+}
+
+::-webkit-scrollbar-thumb {
+     background-color: #c5c5c556;
+     border-radius: 20px;
+     transition: all 0.2s
+}
+
+::-webkit-scrollbar-thumb:hover {
+     background-color: #dadada81;
+}
+
+.app {
+     color: var(--white);
+     background: black;
+     width: 100%;
+     height: 100vh;
+     display: flex;
+     flex-direction: row;
+
+     &>.content {
+          height: 100vh;
+          width: calc(100vw - 250px);
+          overflow-y: auto;
+          padding: 0 40px;
+     }
+
+     &.navbar {
+          width: 250px;
+          height: 100vh;
+          border-right: var(--border);
+     }
+
+}
+
+.btn {
+     padding: 10px 20px;
+     margin: 3px 5px;
+     display: inline-block;
+     background-color: #424142;
+     border-radius: 10px;
+     cursor: pointer;
+     color: white;
+     user-select: none;
+     text-align: center;
+
+     &:hover {
+          background-color: #4F4E50;
+     }
+
+     &:active {
+          box-shadow: rgb(128, 150, 170) 3px 3px 6px 0px inset, rgba(175, 175, 175, 0.5) -3px -3px 6px 1px inset;
+          scale: 0.9;
+          transition: all 0.1s ease-in;
+     }
+
+     &.btn-primary {
+          background-color: #0856d3;
+
+          &:hover {
+               background-color: #1561db;
+          }
+     }
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+     border:none;
+     outline:none;
+     background: transparent;
+     padding: 15px;
+     margin:5px 0px;
+     color: var(--white);
+     border-radius: 10px;
+     transition: background-color 0.2s;
+     resize:none;
+     
+     &:hover{
+          background-color: #ffffff06;
+     }
+     &:focus {
+          background-color: #ffffff10;
+     }
+}
+
+ol, ul, li {
+     list-style: none;
+}
+
+hr{
+     border: 1px solid #2c2c2c;
+}
+
+@media only screen and (min-width: 750px) and (max-width: 1200px) {
+     /* TABLET VIEW */
+
+     .app {
+
+          &>.content {
+               width: calc(100% - 72px);
+          }
+     }
+
+}
+
+@media only screen and (max-width: 750px) {
+     /* MOBILE VIEW */
+
+     .app {
+          flex-direction: column-reverse;
+
+          &>.content {
+               height: calc(100vh - 70px);
+               width: 100%;
+               /* padding: 80px 0 0 0; */
+               padding: 0;
+          }
+     }
+
+     :root {
+          --left-panel-width: 50px;
+     }
+
+     ::-webkit-scrollbar, ::-webkit-scrollbar:hover, ::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:hover{
+          all:unset;
+          width: 0;
+     }
+
+
+}

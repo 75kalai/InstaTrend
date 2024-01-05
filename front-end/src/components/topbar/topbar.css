@@ -1,0 +1,83 @@
+/* VISIBLE ONLY IN MOBILE VIEW */
+
+.topbar {
+     display: none;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: var(--topbarHeight);
+     flex-direction: row;
+     justify-content: space-between;
+     padding: 20px;
+     overflow: hidden;
+     background: #000000c9;
+     background: linear-gradient(0deg, #585858, black 20%, black);
+     -webkit-backdrop-filter: blur(8px);
+     backdrop-filter: blur(8px);
+     box-shadow: inset 0px -20px 20px 20px rgba(255, 255, 255, 0.08);
+ }
+
+.topbar>.right {
+     display: flex;
+     flex-direction: row;
+     gap: 15px;
+}
+
+.topbar>.right>input {
+     border-radius: 20px;
+     background-color: #505050;
+     padding: 10px 20px;
+     transition: 0.2s;
+     color: white;
+
+     &:hover {
+          background-color: #8d8d8d;
+     }
+
+     &::placeholder {
+          opacity: 1;
+          color: rgb(199, 199, 199);
+     }
+}
+
+.topbar>.right>.icon {
+     font-size: 30px;
+     position: relative;
+}
+
+.topbar>.right>.icon>span:first-child {
+     opacity: 1;
+     position: absolute;
+     top: 0;
+     left: 0;
+     transition: 0.2s;
+
+     &:hover {
+          opacity: 0;
+          background-color: red;
+     }
+
+     &:hover+span {
+          /* opacity: 1; */
+     }
+}
+
+.topbar>.right>.icon>span:last-child {
+     opacity: 0;
+     transition: 0.2s;
+}
+
+@media only screen and (max-width: 750px) {
+     .topbar {
+          display: flex;
+     }
+}
+
+@media only screen and (max-width: 500px) {
+
+     /* temp fix for smaller screens */
+     .topbar>.right {
+          display: none;
+     }
+}

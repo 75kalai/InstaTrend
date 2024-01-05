@@ -1,0 +1,15 @@
+{
+  "name": "instabook",
+  "version": "1.0.0",
+  "description": "a instagram like app using MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd .\\front-end && npm start \" \"cd .\\back-end && nodemon app.js \" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kalai",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

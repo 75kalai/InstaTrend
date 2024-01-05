@@ -1,0 +1,33 @@
+.landing-page {
+     height: 100vh;
+     color: rgb(231, 231, 231);
+     background-color: black;
+     background: url(./assets/bg2.jpg);
+     background-position: center;
+     background-size: cover;
+
+     &>.header {
+          height: 80px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 20px;
+
+          &>.right {
+
+               &>span {
+                    margin-left: 20px;
+                    cursor: pointer;
+
+                    &:hover {
+                         text-decoration: underline;
+                    }
+               }
+          }
+     }
+
+     &>.body {
+          height: calc(100vh - 80px);
+          
+     }
+}

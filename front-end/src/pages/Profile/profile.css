@@ -1,0 +1,90 @@
+.profile {
+     /* background-color: red; */
+     height: 100vh;
+
+     &>div{
+          max-width: 950px;
+          width: 100%;
+          margin: 50px auto;
+
+     }
+
+     &>.info {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          flex-wrap: wrap;
+          padding: 0 10px;
+
+          &>.left {
+               padding: 0 50px;
+
+               &>img {
+                    width: 200px;
+                    height: 200px;
+                    object-fit: cover;
+                    object-position: center;
+                    border-radius: 50%;
+                    border: 5px solid transparent;
+                    outline: 3px solid #666;
+               }
+          }
+
+          &>.right {
+               /* padding: 20px; */
+
+               &>div {
+                    margin-bottom: 20px;
+               }
+
+               &>.section-2 {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    gap: 10px;
+
+                    &>div {
+                         background-color: #3d3d3d;
+                         flex-grow: 1;
+                         text-align: center;
+                         padding: 15px;
+                         border-radius: 50px;
+                         box-shadow:
+                              inset 4px 6px 9px 1px #7d7d7d,
+                              inset -8px -17px 20px 0px #1a1616;
+                    }
+
+                    & h4 {
+                         display: inline;
+                    }
+               }
+          }
+     }
+
+     &>.body{
+
+
+          &>.nav{
+               width: 100%;
+               display: flex;
+               flex-direction: row;
+               justify-content: center;
+               gap: 30px;
+               border-top: var(--border2);
+
+               &>*{
+                    padding: 20px;
+                    user-select: none;
+                    cursor: pointer;
+
+                    &:hover{
+                         background-color: #1b1b1b;
+                    }
+
+                    &.selected{
+                         border-top: 2px solid #888;
+                    }
+               }
+          }
+     }
+}
