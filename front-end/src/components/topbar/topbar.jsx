@@ -8,7 +8,7 @@ export default function Topbar() {
      return (
           <div className="topbar" id="topbar">
                <div className="left">
-                    <h1>InstaBook</h1>
+                    <h1>InstaTrend</h1>
                </div>
                <div className="right">
                     <input type="text" placeholder="Search" />

@@ -12,7 +12,7 @@ export default function Landing (){
           <div className="landing-page">
                <div className="header">
                     <div className="left">
-                         <h2>INSTABOOK</h2>
+                         <h2>InstaTrend</h2>
                     </div>
                     <div className="right">
                          <span onClick={()=>{setLoginModalState(true)}}>

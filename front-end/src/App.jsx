@@ -18,7 +18,7 @@ export const AppContext = createContext();
 function App() {
 
      const [appEnvironment, setAppEnvironment] = useState({
-          applicationName: "InstaBook",
+          applicationName: "InstaTrend",
           author: "kalai.r",
           userSession: {
                isLoggedIn: false,
