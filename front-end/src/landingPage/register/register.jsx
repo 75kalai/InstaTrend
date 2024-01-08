@@ -1,6 +1,7 @@
 import './register.css'
 import { useContext, useRef } from 'react'
 import { AppContext } from '../../App'
+import apiUtil from '../../util/apiUtil';
 
 export default function Register() {
 
@@ -10,23 +11,18 @@ export default function Register() {
 
      function registerUser() {
 
-          fetch(appEnvironment.backendURL + '/api/v1/auth/register', {
-               method: "POST",
-               headers: {
-                    "Content-Type": "application/json",
-               },
-               body: JSON.stringify({
+          apiUtil.postAPI(
+               "/api/v1/auth/register",
+               {
                     username: username.current.value,
                     password: password.current.value
-               })
-          })
-               .then((response) => {
-                    response.json().then((data) => {
-                         console.log("data", data);
-                    })
-               }).catch((err) => {
-                    console.error(err);
-               })
+               },
+               (body, response)=>{
+                    console.log('body:', body);
+                    console.log('response', response);
+               }
+          )
+
      }
 
      return (

@@ -10,11 +10,11 @@ const { verifyAuth } = require('./utils/authUtil')
 
 const authRoute = require('./routes/auth')
 const mediaRoute = require('./routes/media')
-
+const postsRoute = require('./routes/posts')
 var corsOptions = {
      origin: process.env.FRONT_END_URL,
      optionsSuccessStatus: 200,
-     credentials:true
+     credentials: true
 }
 app.use(cors(corsOptions));
 app.use(express.json())
@@ -37,22 +37,27 @@ app.use(session(
           store: sessionStore,
      })
 )
-
+app.use((req, res, next) => {
+     console.log('\n\n\n --------------- Incomming Request --------------------');
+     console.log(`${req.method} : ${req.path} `);
+     console.log('BODY:', req.body);
+     next()
+})
 app.use('/api/v1/auth', authRoute)
 // All further routes will need authenticaion.
-app.use( verifyAuth )
+app.use(verifyAuth)
 app.use('/api/v1/media', mediaRoute)
+app.use('/api/v1/posts', postsRoute)
 
-
-app.use( (err, req, res, next )=>{
+app.use((err, req, res, next) => {
      console.error("SERVER ERROR : ", err)
      next()
-} )
+})
 
 app.listen(process.env.PORT, () => {
      console.log("Backend live at http://localhost:" + process.env.PORT)
 })
 
-module.exports = { 
+module.exports = {
      sessionStore,
 }

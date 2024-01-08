@@ -1,10 +1,9 @@
 const mongoose = require("../database")
 const userDB = require('../database/schemas/users');
 
-module.export = {
-     getUserDetails: async  (_idStr) => {
-          const userIDObj = new mongoose.Types.ObjectId(req.session.userID)
-          let userDetail = await userDB.findOne({ _id: userIDObj }, { passwordHash: 0 })
+module.exports = {
+     getUserDetails: async (_idStr) => {
+          let userDetail = await userDB.findOne({ _id: _idStr }, { passwordHash: 0 })
           if (userDetail) {
                return userDetail
           } else {
@@ -14,15 +13,41 @@ module.export = {
           }
      },
      getPostDetails: async ( postID )=>{
+          console.log('postID ', postID);
+
+          // postDetails in IMMUTABLE. WHY!???!?!?
           let postDetails = await userDB.findOne(
-               {
-                    photos:{
+               {    
+                    posts:{
                          $elemMatch:{
                               postID
                          }
                     }
+               },
+               {    
+                    posts:{
+                         $elemMatch:{
+                              postID
+                         }
+                    },
+                    username:1,
+                    profilePhotoURL:1,
+                    profilePhotoThumbURL:1,
+
                }
           )
-          return postDetails
+          if( postDetails==null ){
+               return null
+          }
+          let response = {
+               profile:{
+                    username:postDetails.username,
+                    profilePhotoURL:postDetails.profilePhotoURL,
+                    profilePhotoThumbURL:postDetails.profilePhotoThumbURL,
+               },
+               content:postDetails.posts[0]
+          }
+          return response
+          
      }
 }

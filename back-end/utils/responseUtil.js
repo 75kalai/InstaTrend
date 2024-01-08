@@ -15,7 +15,7 @@ module.exports = {
           }
           return response
      },
-     constructFailureJson:(errCode, message=null, data=null)=>{
+     constructFailureJson:(errCode, message=null, errorData=null)=>{
           let response = {
                message:ErrorCode[errCode],
                code:errCode,
@@ -25,8 +25,8 @@ module.exports = {
                // Override with custom message?
                response.message = message
           }
-          if(data){
-               response.data=data
+          if(errorData){
+               response.error=errorData
           }
           return response
      }

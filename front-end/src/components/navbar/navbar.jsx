@@ -39,11 +39,11 @@ export default function Navbar() {
                          <IoCompassOutline className="icon" />
                          <h4 className="label">Explore</h4>
                     </Link>
-                    <Link to="/messages" className={"list " + (location.pathname === '/messages' ? 'current-tab' : '')}>
+                    <Link to="/messages" className={"list " + (location.pathname === '/messages' ? 'current-tab' : '')} style={{"display":"none"}}>
                          <IoPaperPlaneOutline className='icon' />
                          <h4 className="label">Messages</h4>
                     </Link>
-                    <Link to="/notifications" className={"list " + (location.pathname === '/notifications' ? 'current-tab' : '')}>
+                    <Link to="/notifications" className={"list notifications " + (location.pathname === '/notifications' ? 'current-tab' : '')}>
                          <IoNotificationsOutline className='icon' />
                          <h4 className="label">Notifications</h4>
                     </Link>

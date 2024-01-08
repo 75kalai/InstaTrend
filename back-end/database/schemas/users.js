@@ -22,13 +22,16 @@ const userSchema = new mongoose.Schema({
           default:Date.now()
      },
      profilePhotoURL:{
-          type:Schema.Types.String
+          type:Schema.Types.String,
+          default:null
      },
      profilePhotoThumbURL:{
-          type:Schema.Types.String
+          type:Schema.Types.String,
+          default:null
      },
      description:{
-          type:Schema.Types.String
+          type:Schema.Types.String,
+          default:""
      },
 
      posts:[ postSchema ],

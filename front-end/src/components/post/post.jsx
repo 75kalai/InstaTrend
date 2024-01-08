@@ -2,12 +2,18 @@ import './post.css'
 import { useState } from "react";
 import {SlOptions} from "react-icons/sl";
 import { FaRegComment, FaRegHeart, FaHeart, FaRegPaperPlane, FaRegBookmark, FaBookmark } from "react-icons/fa6";
-
+import defaultAvatar from '../../assets/defaultAvatar.jpg'
 
 export default function Post(props) {
 
+    
+
      let [likeState, setLikeState] = useState(false)
      let [bookMarkState, setBookMarkState] = useState(false)
+
+     if( props.post == null ){
+          return null;
+     }
 
      function computePostedTime(postedTime) {
           let timeDiff = Date.now() - postedTime;
@@ -68,10 +74,10 @@ export default function Post(props) {
                <div className="head">
                     <div className="left">
                          <div className="profile-pic-container">
-                              <img src={POST.profile.thumbnail} alt="profile pic" />
+                              <img src={ POST.profilePhotoThumbURL ? POST.profilePhotoThumbURL : defaultAvatar } alt="profile pic" />
                          </div>
                          <p className="profile-name">
-                              {POST.profile.name}
+                              {POST.profile.username}
                          </p>
                          <p className="posted-time">
                               {computePostedTime(POST.content.postedTime)}
@@ -82,11 +88,11 @@ export default function Post(props) {
                     </div>
                </div>
                <div className="post-content">
-                    {POST.content.type === "image" && (
-                         <img src={POST.content.image} alt="Unable to load" />
+                    {POST.content.media[0].mimeType.includes("image") && (
+                         <img src={process.env.REACT_APP_BACKEND_URL+"/api/v1/media/"+POST.content.media[0].fileName} alt="Unable to load" />
                     )}
-                    {POST.content.type === "video" && (
-                         <video src={POST.content.video} autoPlay muted loop></video>
+                    {POST.content.media[0].mimeType.includes("video") && (
+                         <video src={process.env.REACT_APP_BACKEND_URL+"/api/v1/media/"+POST.content.media[0].fileName} autoPlay muted loop></video>
                     )}
                </div>
                <div className="actions">
@@ -110,16 +116,16 @@ export default function Post(props) {
                     </div>
                </div>
                <div className="like-count">
-                    {POST.contentResponse.likesCount+" likes"}
+                    {POST.content.likes.length+" likes"}
                </div>
                <div className="description">
                     <span>
-                         {POST.profile.name}
+                         {POST.profile.username}
                     </span>
-                    {" " + POST.content.description}
+                    {" " + POST.content.caption}
                     <div>
-                         {POST.contentResponse.commentCount===1 && `View ${POST.contentResponse.commentCount} comment`}
-                         {POST.contentResponse.commentCount>1 && `View all ${POST.contentResponse.commentCount} comments`}
+                         {POST.content.comments.length===1 && `View ${POST.content.comments.length} comment`}
+                         {POST.content.comments.length>1 && `View all ${POST.content.comments.length} comments`}
                     </div>
                </div>
 

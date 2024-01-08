@@ -1,16 +1,15 @@
 import './App.css';
 import { createContext, useEffect, useState } from 'react';
 import Landing from './landingPage/landing'
-import Topbar from './components/topbar/topbar';
 import Navbar from './components/navbar/navbar';
 import Profile from './pages/Profile/profile';
 import CreatePost from './pages/CreatePost/createPost'
 import Error from './pages/Error/error';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import posts from './sampleData'
 import Home from './pages/Home/home'
 import apiUtil from './util/apiUtil'
 import PostViewer from './components/postViewer/postViewer'
+import Search from './pages/Search/search';
 
 
 // Entire front end app variables stored here
@@ -25,7 +24,7 @@ function App() {
                isLoggedIn: false,
                userData: null
           },
-          logInUser: (data) => {
+          __setUserData:(data)=>{
                setAppEnvironment((prevAppEnv) => {
                     return {
                          ...prevAppEnv,
@@ -36,9 +35,12 @@ function App() {
                     }
                })
           },
+          logInUser: (data) => {
+               appEnvironment.__setUserData(data)
+          },
           logOutUser: () => {
                setAppEnvironment((prevAppEnv) => {
-                    // clear cookie first.
+                    // TODO: await response and return.
                     apiUtil.postAPI("/api/v1/auth/logout")
 
                     return {
@@ -49,26 +51,34 @@ function App() {
                          }
                     }
                })
+          },
+          refreshUserData: () => {
+               apiUtil.getAPI("/api/v1/auth/me", null, (body, headers) => {
+                    if (body.code == 0) {
+                         appEnvironment.__setUserData(body.data)
+                    } else if (body.code == 1004) {
+                         appEnvironment.logOutUser()
+                    }
+               })
           }
      })
 
-     // TODO : if session cookie is available, get user detail and login user 
      //----------
-     const [isfirstRunTime, setIsFirstRunTime] = useState(true)
+     // const [isfirstRunTime, setIsFirstRunTime] = useState(true)
 
      useEffect(() => {
-          if (isfirstRunTime) {
-               apiUtil.getAPI("/api/v1/auth/me", null, (body, headers) => {
-                    if (body.code == 0) {
-                         appEnvironment.logInUser(body.data)
-                    } else
-                         if (body.code == 1004) {
-                              appEnvironment.logOutUser()
-                         }
-               })
-               setIsFirstRunTime(false)
-          }
-     }, [appEnvironment])
+          // if (isfirstRunTime) {
+          apiUtil.getAPI("/api/v1/auth/me", null, (body, headers) => {
+               if (body.code == 0) {
+                    appEnvironment.logInUser(body.data)
+               } else
+                    if (body.code == 1004) {
+                         appEnvironment.logOutUser()
+                    }
+          })
+          // setIsFirstRunTime(false)
+          // }
+     }, [])
 
 
      //----------
@@ -80,18 +90,20 @@ function App() {
                     <div className="content">
                          <Routes>
                               <Route path="/" element={<Home />} />
-                              <Route path="/profile" element={<Profile profile={posts[2].profile} />} >
+                              <Route path="/profile" element={<Profile profile={appEnvironment.userSession.userData} />} >
                                    {/* :id */}
                               </Route>
-                              <Route path="/post/:postID" element={<PostViewer/>}>
+                              <Route path="/post/:postID" element={<PostViewer />}>
                                    <Route path="comments">
                                    </Route>
                               </Route>
                               <Route path='/new-post' element={<CreatePost />} />
+                              <Route path="/search" element={<Search/>}></Route>
                               <Route path="*" element={<Error />} />
                          </Routes>
                     </div>
                </BrowserRouter>
+               
           </div>
      );
 

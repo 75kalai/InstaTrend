@@ -22,10 +22,42 @@ code {
 a {
   color: inherit;
   text-decoration: unset;
+
   &:link,
   :visited,
   :hover,
   :active {
     color: inherit;
+  }
+}
+
+.app-container{
+
+  &>.screen-limiter {
+    position: fixed;
+    z-index: 1000;
+    background: black;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 10px;
+  }
+
+}  
+
+@media only screen and (max-width:320px), only screen and (max-height:320px){
+  .app-container{
+    &>.screen-limiter {
+      display: flex;
+    }
+    &>.app{
+      display: none;
+    }
   }
 }

@@ -3,12 +3,15 @@ import './createPost.css'
 // import env from "react-dotenv";
 import { MdFileUpload } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 import apiUtil from '../../util/apiUtil';
 
 const BACKEND_URL="http://localhost:3100";
 
 export default function CreatePost() {
+
+     const navigate = useNavigate();
 
      let fileInputEl = useRef();
      let elLeft = useRef();
@@ -83,17 +86,17 @@ export default function CreatePost() {
                body: formData
           }
 
-          // fetch(BACKEND_URL + "/api/v1/media/upload", requestOptions)
+          // fetch(BACKEND_URL + "/api/v1/posts", requestOptions)
           //      .then(response => response.json())
           //      .then(result => console.log(result))
           //      .catch(error => console.error(error));
 
           apiUtil.uploadMedia(
-               '/api/v1/media/createPost', 
+               '/api/v1/posts', 
                formData,
-               ( data, headers )=>{
-                    console.log('data', data);
-                    console.log('headers', headers);
+               ( body, headers )=>{
+                    const postID = body.data.postID
+                    navigate(`/post/${postID}`)
                }
                );
 

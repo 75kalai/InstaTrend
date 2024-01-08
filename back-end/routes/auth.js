@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
 
      let userData = await userDB.findOne({ username })
      if (userData) {
-          bcrypt.compare(password, userData.passwordHash, function (err, result) {
+          bcrypt.compare(password, userData.passwordHash, async function (err, result) {
 
                if (err) {
                     console.error("ERROR : REGISTER USER : ", username, password, err)
@@ -56,7 +56,8 @@ router.post('/login', async (req, res) => {
                if (result) {
                     req.session.authenticated = true
                     req.session.userID = userData._id.toString()
-                    return res.status(200).json(responseUtil.constructSuccessJson("Log-in Success", req.session));
+                    let userDetail = await dbUtil.getUserDetails( req.session.userID );
+                    return res.status(200).json(responseUtil.constructSuccessJson("Log-in Success", userDetail));
                } else {
                     // Password is incorrect
                     // 401:User Unautherised
@@ -81,7 +82,7 @@ router.post('/logout', verifyAuth, (req, res) => {
 router.get('/me', verifyAuth, async (req, res) => {
      sessionID = req.sessionID
 
-     let userDetail = await dbUtil.getUserDetail( req.session.userID );
+     let userDetail = await dbUtil.getUserDetails( req.session.userID );
 
      res.json(responseUtil.constructSuccessJson(
           `User is logged in. Hello ${userDetail.username}.`, 

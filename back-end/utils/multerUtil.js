@@ -26,12 +26,12 @@ function storeMultipleMedia(req, res, paramName1, paramName2, destination, callb
                          cb(null, true);
                          break;
                     default:
-                         cb(null, false);
-                         const err = new Error('Only .png, .jpg, .jpeg and .mp4 formats allowed!')
+                         const errString = 'Only .png, .jpg, .jpeg and .mp4 formats allowed!'
+                         const err = new Error( errString )
                          err.name = 'ExtensionError'
                          console.log('fileFilter:failure');
-
-                         cb(err);
+                         req.fileValidationError = errString
+                         cb(null, false, err);
                }
           }
      })

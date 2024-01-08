@@ -15,13 +15,12 @@ export default function Login() {
           apiUtil.postAPI(
                '/api/v1/auth/login',
                {
-                    // Use params if available, else use input value
-                    username: username ? username : usernameRef.current.value,
-                    password: password ? password : passwordRef.current.value
+                    username,
+                    password
                },
-               (data, headers) => {
+               (body, headers) => {
                     // callback
-                    appEnvironment.logInUser(data)
+                    appEnvironment.logInUser(body.data)
                     
                })
      }
@@ -39,15 +38,19 @@ export default function Login() {
                     <label htmlFor="login-form-password">Password</label>
                     <input type="password" name="" id="login-form-password" placeholder="Enter password" ref={passwordRef} />
                </div>
-               <div className="btn btn-primary" onClick={loginUser}>
+               <div className="btn btn-primary" onClick={
+                    ()=>{
+                         loginUser( usernameRef.current.value, passwordRef.current.value )
+                    }
+               }>
                     login
                </div>
                <hr />
                <div className="btn" onClick={() => { loginUser("kalai", "kalai") }}>
                     Login into test account "kalai"
                </div>
-               <div className="btn">
-                    Login into test account 2
+               <div className="btn" onClick={() => { loginUser("superstar", "rajiniKanth") }}>
+                    Login into test account "superstar"
                </div>
           </div>
      )

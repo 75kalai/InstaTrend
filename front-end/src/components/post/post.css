@@ -102,8 +102,10 @@
      outline: 3px solid var(--white);
 
      &>img {
-          width: var(--size);
-          height: var(--size);
+          /* width: var(--size);
+          height: var(--size); */
+          height: 100%;
+          width: 100%;
           object-fit: cover;
           object-position: center;
      }

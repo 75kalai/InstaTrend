@@ -10,6 +10,7 @@ const ErrorCode={
      1004:"User is not logged in",
 
      4400:"Bad Request",
+     4404:"Resource not found",
      
      9000:"Interal server error",
      9001:"Fatal server error",
