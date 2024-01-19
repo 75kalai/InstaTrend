@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
      },
 
      posts:[ postSchema ],
-     savedPosts:[ Schema.Types.ObjectId ],
+     savedPosts:[ Schema.Types.String ],
      followers:[ Schema.Types.ObjectId ],
      following:[ Schema.Types.ObjectId ],
      notifications:[ notificationsSchema ],

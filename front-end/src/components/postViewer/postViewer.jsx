@@ -12,22 +12,16 @@ export default function PostViewer() {
      const [postDetails, setPostDetails] = useState(null)
 
 
-     const [ isFirstRun, setIsFirstRun ] = useState(true)
-     useEffect( ()=>{
-          if( isFirstRun ){
-
-               apiUtil.getAPI( `/api/v1/posts/${postID}`, null, (body, response)=>{
-                    setPostDetails( body.data )
-               } )
-
-               setIsFirstRun(false)
-          }
-     }, [isFirstRun, postID] )
+     useEffect(() => {
+          apiUtil.getAPI(`/api/v1/posts/${postID}`, (body, response) => {
+               setPostDetails(body.data)
+          })
+     }, [postID])
 
      return (
           <div className="post-viewer">
                <div className="header">
-                    <div className="back" onClick={()=>{window.history.back()}}>
+                    <div className="back" onClick={() => { window.history.back() }}>
                          <FaAngleLeft />
                     </div>
                     <div className="title">
@@ -35,7 +29,8 @@ export default function PostViewer() {
                     </div>
                </div>
                <div className="content">
-                    <Post post={postDetails} ></Post>
+                    <Post post={postDetails} setPost={setPostDetails} ></Post>
+                    {/* SHOW SUGGESTIONS ? */}
                </div>
           </div>
      )

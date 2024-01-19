@@ -24,7 +24,6 @@ function RequestServer(
      }
      if (body != null) {
           if (reqContentType == ContentType.JSON) {
-               console.log('its JSON', body);
                requestBody.headers["Content-Type"] = reqContentType
                requestBody.body = JSON.stringify(body)
           } else {
@@ -40,35 +39,28 @@ function RequestServer(
                               if (callbackFunc) {
                                    callbackFunc(data, response)
                               }
-                         } else
-                              if (response.status >= 400 && response.status < 500) {
-                                   // popup error code
-                                   if(data.code == 1004){
-                                        // User is not logged in
-                                        // LOG OUT USER!
-                                   }
-                              } else
-                              if (response.status >= 500 && response.status < 600) {
-                                   // popup again & retry after some time?
-                              } else {
-                                   // do what?
+                         } else if (response.status >= 400 && response.status < 500) {
+                              // popup error code
+                              window.alert( data.message )
+                              if (data.code == 1004) {
+                                   // User is not logged in
+                                   // LOG OUT USER!
                               }
-                    })
-
-               }
-               else
-                    if (resContentType == ContentType.MEDIA) {
-                         if (callbackFunc) {
-                              // UNTESTED !!
-                              console.log('ct', response);
-                              var blobData = await response.blob();
-                              const objectURL = URL.createObjectURL(blobData);
-
-                              callbackFunc(objectURL, response)
+                         } else if (response.status >= 500 && response.status < 600) {
+                              // popup again & retry after some time?
                          } else {
-                              console.error("Callback Function is not defined", callbackFunc)
+                              // do what?
                          }
-                    }
+                    })
+               } else if (resContentType == ContentType.MEDIA) {
+                    if (callbackFunc) {
+                         
+                         var blobData = await response.blob();
+                         const objectURL = URL.createObjectURL(blobData);
+                         callbackFunc(objectURL, response)
+
+                    } 
+               }
           }).catch((err) => {
                console.error(err);
           });
@@ -78,8 +70,8 @@ function RequestServer(
 
 
 export default {
-     getAPI: (path, body = null, callbackFunc = null) => {
-          RequestServer("GET", path, ContentType.JSON, ContentType.JSON, body, callbackFunc)
+     getAPI: (path, callbackFunc = null) => {
+          RequestServer("GET", path, ContentType.JSON, ContentType.JSON, null, callbackFunc)
      },
      getMedia: (path, callbackFunc) => {
           RequestServer("GET", path, ContentType.JSON, ContentType.MEDIA, null, callbackFunc)
@@ -90,6 +82,8 @@ export default {
      uploadMedia: (path, formData, callbackFunc = null) => {
           RequestServer("POST", path, ContentType.MEDIA, ContentType.JSON, formData, callbackFunc)
      },
-     putAPI: () => { },
+     putAPI: (path, body = null, callbackFunc = null) => {
+          RequestServer("PUT", path, ContentType.JSON, ContentType.JSON, body, callbackFunc)
+     },
      deleteAPI: () => { },
 }

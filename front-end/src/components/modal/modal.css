@@ -1,35 +1,66 @@
-.modal-overlay{
+.modal-overlay {
      position: fixed;
      top: 0;
      left: 0;
      width: 100vw;
      height: 100vh;
+     max-width: unset;
+     max-height: unset;
+     z-index: 100;
      background-color: rgb(35 35 35 / 50%);
      display: flex;
      justify-content: center;
      align-items: center;
      padding: 25px;
-     
-     &>.modal{
-          /* width: 50vw; */
-          /* height: 70vh; */
-          min-width: 200px;
-          min-height: 350px;
-          background-color: black;
-          border-radius: 25px;
-          border: 4px dashed rgb(96, 29, 158);
-          outline: 8px solid black;
-          overflow: hidden;
-          padding: 10px;
-          position: relative;
+     backdrop-filter: blur(10px);
 
-          &>.close-modal{
-               position:absolute;
-               right: 0;
-               top: 0;
-               margin: 10px;
-               font-size: 25px;
-               cursor: pointer;
+     &>.modal {
+          min-width: 300px;
+          /* min-height: 350px; */
+          background-color: rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(25px);
+          border-radius: 15px;
+          overflow: hidden;
+          position: relative;
+          border: 2px solid #444;
+
+          &>.header {
+               height: 60px;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               background-color: black;
+               border-bottom: 2px solid #444;
+
+               &>.heading {
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-overflow: ellipsis;
+                    max-width: 300px;
+                    white-space: nowrap;
+                    overflow: hidden;
+               }
+
+               &>.close {
+                    width: 70px;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    font-size: 25px;
+                    border-left: 2px solid #111;
+                    transition: background-color 0.2s;
+
+                    &:hover {
+                         background-color: #bb0c0cf2;
+                    }
+               }
+          }
+
+          &>.modal-content {
+               padding: 30px 20px;
+
           }
      }
 }

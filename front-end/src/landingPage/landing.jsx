@@ -25,14 +25,22 @@ export default function Landing (){
                </div>
                <div className="body"></div>
 
-               <Modal isOpen={loginModalState} onClose={()=>{setLoginModalState(false)}}>
+               <Modal 
+                    heading={"Login to InstaTrend"}
+                    isOpen={loginModalState} 
+                    onClose={()=>{setLoginModalState(false)}}
+               >
                     {/* LOGIN MODAL */}
-                    <Login></Login>
+                    <Login/>
                </Modal>
 
-               <Modal isOpen={registerModalState} onClose={()=>{setRegisterModalState(false)}}>
+               <Modal 
+                    heading={"Create an account"}
+                    isOpen={registerModalState} 
+                    onClose={()=>{setRegisterModalState(false)}}
+               >
                     {/* REGISTER MODAL */}
-                    <Register></Register>
+                    <Register/>
                </Modal>
           </div>
      )

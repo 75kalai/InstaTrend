@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './modal.css'
-import { FaRegWindowClose, FaWindowClose } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
-export default function Modal({isOpen, onClose, children}){
+export default function Modal({heading, isOpen, onClose, children}){
      
      const [isCloseBtnHovered, setIsCloseBtnHovered] = useState(false);
 
@@ -10,6 +10,7 @@ export default function Modal({isOpen, onClose, children}){
           return null;
      }
 
+                  
      function exitModalonBGClick(e){
           if(e.target.classList.contains("modal-overlay")){
                onClose();
@@ -19,15 +20,17 @@ export default function Modal({isOpen, onClose, children}){
      return (
           <div className="modal-overlay" onClick={exitModalonBGClick}>
                <div className="modal">
-                    <span 
-                         className="close-modal" 
-                         onClick={onClose}
-                         onMouseEnter={()=>{ setIsCloseBtnHovered(true) }}
-                         onMouseLeave={()=>{ setIsCloseBtnHovered(false) }}
-                    >
-                         {isCloseBtnHovered? <FaWindowClose /> : <FaRegWindowClose /> }
-                    </span>
-                    {children}
+                    <div className="header">
+                         <h2 className="heading">
+                              {heading}
+                         </h2>
+                         <div className="close" onClick={onClose}>
+                              <IoClose />
+                         </div>
+                    </div>
+                    <div className="modal-content">
+                         {children}
+                    </div>
                </div>
           </div>     
      )

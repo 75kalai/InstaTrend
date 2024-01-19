@@ -27,9 +27,6 @@ export default function Login() {
 
      return (
           <div className="login-form">
-               <h2>
-                    Login to app
-               </h2>
                <div className="username">
                     <label htmlFor="login-form-username">Username</label>
                     <input type="text" name="" id="login-form-username" placeholder="Enter username" ref={usernameRef} />
@@ -51,6 +48,9 @@ export default function Login() {
                </div>
                <div className="btn" onClick={() => { loginUser("superstar", "rajiniKanth") }}>
                     Login into test account "superstar"
+               </div>
+               <div className="btn" onClick={() => { loginUser("Anushka", "cutie") }}>
+                    Login into test account "Anushka"
                </div>
           </div>
      )

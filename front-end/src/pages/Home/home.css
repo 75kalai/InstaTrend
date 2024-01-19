@@ -1,4 +1,23 @@
 .home{
-     padding: 100px 30px;
+     padding: 70px 30px;
      position: relative;
+
+     &>.no-content{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          height: 450px;
+          text-align: center;
+          gap: 40px;
+
+          & h1{
+               font-style: italic;
+          }
+
+          &>.quote{
+               display: flex;
+               gap: 10px;
+          }
+     }
 }

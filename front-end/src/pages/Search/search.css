@@ -21,6 +21,7 @@
                flex-direction: row;
                justify-content: space-between;
                --search-btn-width:100px;
+               overflow: hidden;
 
                &>input{
                     font-size:30px;
@@ -36,7 +37,17 @@
                     align-items: center;
                     font-size:30px;
                     border-left: 2px solid #888;
-                    
+                    background-color: black;
+                    transition: background-color 0.2s;
+                    cursor: pointer;
+
+                    &:hover{
+                         background-color: #222;
+                    }          
+
+                    &:active{
+                         background-color: #333;
+                    }
                }
           }
      }
@@ -47,19 +58,53 @@
           justify-content: center;
           gap: 10px;
           padding: 20px 40px;
-
-          &>.profile-card {
-               width: 200px;
-               height: 250px;
-               flex-grow: 1;
-               background: black;
-               border: 2px solid #666;
-               border-radius: 20px;
-          }
+          cursor:pointer;
+          
      }
 
 }
+.profile-card {
+     width: 220px;
+     height: 250px;
+     /* flex-grow: 1; */
+     background: black;
+     border: 2px solid #666;
+     border-radius: 20px;
 
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     gap: 15px;
+     
+     background-color: black;
+     transition: background-color 0.2s;
+     &:hover{
+          background-color: #111;
+     }
+     &:active{
+          background-color: #222;
+     }
+
+     &>.profile-image-container{
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          overflow: hidden;
+          border: 3px solid transparent;
+          outline: 3px solid #777;
+
+          &>img{
+               width: 100%;
+               height: 100%;
+               object-fit: cover;
+               object-position: center;
+          }
+     }
+     &>.profile-name{
+          font-size: 20px;
+     }
+}
 @media only screen and (max-width:750px) {
      .search {
           

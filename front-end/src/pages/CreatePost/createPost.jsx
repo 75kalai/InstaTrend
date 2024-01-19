@@ -138,7 +138,7 @@ export default function CreatePost() {
                     <div className="media-container">
                          <div className="display-img">
                               {selectedFiles.length !== 0 &&
-                                   <>
+                                   (<>
                                         {
                                              selectedFiles[selectedMediaId].type.includes("image") &&
                                              <img src={URL.createObjectURL(selectedFiles[selectedMediaId])} className='media-thumb' alt="failed to load"/>
@@ -148,7 +148,7 @@ export default function CreatePost() {
                                              &&
                                              <video src={URL.createObjectURL(selectedFiles[selectedMediaId])} className='media-thumb' autoPlay loop controls alt="failed to load"/>
                                         }
-                                   </>
+                                   </>)
                               }
 
                          </div>

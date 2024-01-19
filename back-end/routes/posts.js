@@ -3,7 +3,8 @@ const multer = require('multer')
 const appUtil = require("../utils/appUtil")
 const multerUtil = require("../utils/multerUtil")
 const responseUtil = require("../utils/responseUtil")
-const dbUtil = require('../utils/dbUtil')
+const dbUtil = require('../utils/dbUtil');
+const profileUtil = require('../utils/profileUtil');
 
 // Create new post
 router.post('/', (req, res) => {
@@ -67,12 +68,52 @@ router.delete('/:postID', (req, res) => {
 
 });
 
-router.post('/:postID/like', (req, res) => {
-     // Like post
+// Like post
+router.put('/:postID/like', async (req, res) => {
+     let postID = req.params.postID
+     await dbUtil.likePost( postID, req.session.userID)
+     let response = await dbUtil.getPostDetails( postID )
+     res.json(responseUtil.constructSuccessJson("Post Liked. Returning updated post details", response))
 });
 
-router.post('/:postID/unlike', (req, res) => {
-     // Unlike post
+// Unlike post
+router.put('/:postID/unlike', async (req, res) => {
+     let postID = req.params.postID
+     await dbUtil.unLikePost( postID, req.session.userID)
+     let response = await dbUtil.getPostDetails( postID )
+     res.json(responseUtil.constructSuccessJson("Post Unliked. Returning updated post details", response))
+});
+
+// Save post
+router.put('/:postID/save', async (req, res) => {
+     let currentUserID = req.session.userID
+     let postID = req.params.postID
+     await dbUtil.savePost( postID, currentUserID )
+     let postDetails = await dbUtil.getPostDetails( postID )
+     
+     // TODO: 
+     // TODO:(1)remove use of req.session.username, 
+     // TODO:(2)implement middleware for storing userdata in authenticated calls
+     // TODO:(3)change all util files to use userID
+     // TODO:(4)merge dbUtil & appUtil as postUtil
+     let currentUsername = await profileUtil.findUsernameByID( currentUserID ) 
+     let currentUserDetails = await profileUtil.getUserDetails( currentUsername, true )
+
+     res.json(responseUtil.constructSuccessJson("Post Saved. Returning updated post & current-user details", {postDetails, currentUserDetails}))
+});
+
+// Unsave post
+router.put('/:postID/unsave', async (req, res) => {
+     let currentUserID = req.session.userID
+     let postID = req.params.postID
+     await dbUtil.unSavePost( postID, currentUserID )
+     let postDetails = await dbUtil.getPostDetails( postID )
+     
+     // TODO: see /save todo
+     let currentUsername = await profileUtil.findUsernameByID( currentUserID ) 
+     let currentUserDetails = await profileUtil.getUserDetails( currentUsername, true )
+
+     res.json(responseUtil.constructSuccessJson("Post Unsaved. Returning updated post & current-user details", {postDetails, currentUserDetails}))
 });
 
 router.get('/:postID/comments', (req, res) => {

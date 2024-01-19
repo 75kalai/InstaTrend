@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const { verifyAuth } = require('../utils/authUtil')
-const dbUtil = require('../utils/dbUtil')
+const profileUtil = require("../utils/profileUtil")
 
 // ------------- ROUTES ---------------
 
@@ -29,12 +29,13 @@ router.post('/register', async (req, res) => {
                     // Internal server error
                     res.status(500).json(9000);
                }
-
-               let newUser = await userDB.create({
+               await userDB.create({
                     username,
                     passwordHash: passwordHash,
-                    accountCreatedTime: Date.now()
+                    accountCreatedTime: Date.now(),
                })
+
+               let newUser = await profileUtil.getUserDetails( username, true )
                res.json(responseUtil.constructSuccessJson("User Successfully Registered", newUser))
           });
      }
@@ -43,8 +44,9 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
      let { username, password } = req.body;
 
-     let userData = await userDB.findOne({ username })
+     let userData = await userDB.findOne({ username }) 
      if (userData) {
+          userData = userData.toJSON()
           bcrypt.compare(password, userData.passwordHash, async function (err, result) {
 
                if (err) {
@@ -54,9 +56,15 @@ router.post('/login', async (req, res) => {
                }
 
                if (result) {
+                    console.log('LOGIN : PASS-BCRYPT COMPARE RESULT : ', result);
                     req.session.authenticated = true
+
+                    // :: Storing in username should be suffice if proper validation 
+                    // :: for username is done. userID( gen by DB shouldnt be necessary)
                     req.session.userID = userData._id.toString()
-                    let userDetail = await dbUtil.getUserDetails( req.session.userID );
+                    req.session.username = username;
+                    
+                    let userDetail = await profileUtil.getUserDetails( username, true );
                     return res.status(200).json(responseUtil.constructSuccessJson("Log-in Success", userDetail));
                } else {
                     // Password is incorrect
@@ -82,12 +90,20 @@ router.post('/logout', verifyAuth, (req, res) => {
 router.get('/me', verifyAuth, async (req, res) => {
      sessionID = req.sessionID
 
-     let userDetail = await dbUtil.getUserDetails( req.session.userID );
+     let userDetail = await profileUtil.getUserDetails( req.session.username, true );
 
-     res.json(responseUtil.constructSuccessJson(
-          `User is logged in. Hello ${userDetail.username}.`, 
-          userDetail
-     ))
+     if( userDetail ){
+          res.json(responseUtil.constructSuccessJson(
+               `User is logged in. Hello ${userDetail.username}.`, 
+               userDetail
+          ))
+     }else{
+          // auth exists, but record not exists?
+          res.status(404).json( responseUtil.constructFailureJson(
+               `User details not found`
+          ) )
+     }
+
 });
 
 module.exports = router

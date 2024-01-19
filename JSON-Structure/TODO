@@ -1,0 +1,10 @@
+TODO
+> like
+> save/bookmark
+> delete
+> share
+> show location on post
+> refactor appUtil & dbUtil
+> add notifications
+> change all uses of req.session.username to req.session.userID
+> when session is active, retouch session

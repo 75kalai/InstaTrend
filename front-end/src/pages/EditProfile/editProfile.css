@@ -1,0 +1,124 @@
+.edit-profile{
+     display: flex;
+     flex-direction: column;
+     gap: 40px;
+
+     --header-height:60px;
+     position: relative;
+
+     &>.header{
+          height: var(--header-height);
+          border-bottom: 1px solid #eee;
+          display: flex;
+          flex-direction: row;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          background-color: black;
+
+          &>.back{
+               position: absolute;
+               top: 0;
+               left: 0;
+               height: 100%;
+               padding: 10px;
+               font-size: 30px;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               cursor: pointer;
+               
+               &:hover{
+                    background-color: #222;
+               }
+          }
+     }
+
+     &>[class^="section-"]{
+          background-color: #222;
+          padding: 20px;
+          border-radius: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          margin: 0 20px;
+     }
+
+     &>.section-1{
+
+          &>.content{
+               
+               &>.box-1{
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    
+                    &>input{
+                         flex-grow: 1;
+                         font-size: 18px;
+                    }
+               }
+               &>.username-availability-status{
+                    margin-top: 2px;
+                    font-style: italic;
+
+                    &.available{
+                         color:#03cc03;
+                    }
+                    &.not-available{
+                         color: yellow;
+                    }
+
+               }
+          }
+     }
+     &>.section-2{
+          &>.content{
+               display: flex;
+               justify-content: space-around;
+               flex-wrap: wrap;
+               gap: 20px;
+               &>.left{
+                    width: 150px;
+                    height: 150px;
+                    &>img{
+                         width: 100%;
+                         height: 100%;
+                         border-radius: 50%;
+                         border: 3px solid transparent;
+                         outline: 3px solid #ddd;
+                         object-fit: cover;
+                         object-position: center;
+                    }
+               }
+               &>.right{
+                    display: flex;
+                    flex-direction: column;
+                    
+                    &>input[type="file"]{
+                         display: none;
+                    }
+               }
+          }
+     }
+     &>.section-3{
+          &>.content{
+               &>textarea{
+                    width: 100%;
+                    min-height: 100px;
+                    resize:vertical;
+               }
+          }
+     }
+
+     &>.section-end{
+          margin-bottom: 20px;
+     }
+}
+
+.modal-view-profile-pic{
+     width: 300px;
+     height: 300px;
+     object-fit: cover;
+     object-position: center;
+}

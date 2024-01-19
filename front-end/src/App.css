@@ -66,7 +66,9 @@
      cursor: pointer;
      color: white;
      user-select: none;
-     text-align: center;
+     display: inline-flex;
+     justify-content: center;
+     align-items: center;
 
      &:hover {
           background-color: #4F4E50;
@@ -86,13 +88,21 @@
           }
      }
 }
-
+.loading-animation{
+     width: 100%;
+     aspect-ratio: 1/1;
+     cursor: wait;
+     background: linear-gradient( 125deg, #aaa 0, #aaa 10%, #bdbdbd 15%, #aaa 20%, #aaa 100% );
+     background-size: 500% 200%;
+     background-position-x: 500%;
+     animation: loadingAnimation linear 6s infinite;
+}
 input[type="text"],
 input[type="password"],
 textarea {
      border:none;
      outline:none;
-     background: transparent;
+     background-color: #ffffff08;
      padding: 15px;
      margin:5px 0px;
      color: var(--white);
@@ -101,10 +111,10 @@ textarea {
      resize:none;
      
      &:hover{
-          background-color: #ffffff06;
+          background-color: #ffffff10;
      }
      &:focus {
-          background-color: #ffffff10;
+          background-color: #ffffff20;
      }
 }
 

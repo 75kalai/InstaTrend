@@ -11,6 +11,12 @@ const { verifyAuth } = require('./utils/authUtil')
 const authRoute = require('./routes/auth')
 const mediaRoute = require('./routes/media')
 const postsRoute = require('./routes/posts')
+const searchRoute = require('./routes/search')
+const profileRoute = require('./routes/profile')
+const feedsRoute = require('./routes/feed')
+const exploreRoute = require('./routes/explore')
+const settingsRoute = require('./routes/settings')
+
 var corsOptions = {
      origin: process.env.FRONT_END_URL,
      optionsSuccessStatus: 200,
@@ -48,6 +54,11 @@ app.use('/api/v1/auth', authRoute)
 app.use(verifyAuth)
 app.use('/api/v1/media', mediaRoute)
 app.use('/api/v1/posts', postsRoute)
+app.use('/api/v1/search', searchRoute)
+app.use('/api/v1/profile', profileRoute)
+app.use('/api/v1/feeds', feedsRoute)
+app.use('/api/v1/explore', exploreRoute)
+app.use('/api/v1/settings', settingsRoute)
 
 app.use((err, req, res, next) => {
      console.error("SERVER ERROR : ", err)

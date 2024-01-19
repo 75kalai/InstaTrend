@@ -7,7 +7,7 @@ module.exports = {
                console.log(':: Call is unathenticated :: ');
                return res.status(400).send(responseUtil.constructFailureJson(1004))
           }
-          console.log(':: Call is AUTHENTICATED :: ');
+          console.log(':: Call is AUTHENTICATED :: username:', req.session.username);
           
           next()
      }

@@ -44,5 +44,21 @@
           &:hover >.post-thumb-overlay{
                opacity: 1;
           }
+
+     }
+     &>.no-posts-message{
+          width: 100%;
+          padding: 100px 20px;
+          text-align: center;
+          color:#bbb;
+     }
+}
+
+@keyframes loadingAnimation{
+     0%{
+          background-position-x: 500%;
+     }
+     100%{
+          background-position-x: 0%;
      }
 }
