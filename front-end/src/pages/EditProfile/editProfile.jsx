@@ -23,7 +23,7 @@ export default function EditProfile() {
           SAME: 2
      }
      const [isNewUsernameAvailable, setIsNewUsernameAvailable] = useState(STATUS.SAME)
-     const [profilePic, setProfilePic] = useState(userData.profilePhotoURL)
+     const [profilePic, setProfilePic] = useState(userData.profilePhotoURL? `${process.env.REACT_APP_BACKEND_URL}/api/v1/profile/dp/${userData.profilePhotoURL}`: null )
      const [profileModalState, setProfileModalState] = useState(false)
      const [removeProfilePic, setRemoveProfilePic] = useState(false);
 

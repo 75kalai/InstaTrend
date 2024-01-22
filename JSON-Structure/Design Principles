@@ -1,6 +1,6 @@
 Server Side
 > Business Logic and App Logic must be seperate
-> use middlewares as much as possible
+> use   as much as possible
 > authentication middleware must be used for session routes
 > also add user-data to request object after authentication
 > all calls must have a input validation and rest structure

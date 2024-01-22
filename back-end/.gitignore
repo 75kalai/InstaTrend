@@ -26,3 +26,5 @@ yarn-error.log*
 /storage/posts/*
 /storage/profile/original/*
 /storage/profile/thumb/*
+
+.env
