@@ -7,7 +7,7 @@
     "dev": "concurrently \"cd .\\front-end && npm start \" \"cd .\\back-end && nodemon app.js \" ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./deploy.sh",
-    "start": "cd .\\back-end && nodemon app.js "
+    "start": "cd .\\back-end && node app.js "
   },
   "author": "Kalai",
   "license": "ISC",
