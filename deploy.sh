@@ -5,7 +5,7 @@
 # Step 1: Navigate to the frontend folder and build React app
 echo "Step 1: Building React app"
 cd front-end
-npm install
+npm install --production
 npm run build
 
 # Step 2: Move build to the backend's public folder
@@ -15,7 +15,7 @@ mv build ../back-end/
 # Step 3: Navigate to the backend folder
 echo "Step 3: Deploying backend"
 cd ../back-end
-npm install
+npm install --production
 
 # Step 4: Start the production server
 echo "Step 4: Starting production server"
