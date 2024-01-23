@@ -6,6 +6,7 @@
 echo "Step 1: Building React app"
 cd front-end
 npm install --production
+modclean -r
 npm run build
 
 # Step 2: Move build to the backend's public folder
@@ -16,9 +17,11 @@ mv build ../back-end/
 echo "Step 3: Deploying backend"
 cd ../back-end
 npm install --production
+modclean -r
 
 # Step 4: Start the production server
 echo "Step 4: Starting production server"
+modclean -r
 npm start
 
 echo "Deployment complete"
