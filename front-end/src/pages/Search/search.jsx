@@ -3,21 +3,29 @@ import './search.css'
 import { IoSearchOutline } from 'react-icons/io5';
 import ApiUtil from '../../util/apiUtil'
 import defaultAvatar from '../../assets/defaultAvatar.jpg'
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 export default function Search() {
 
      let searchInputRef = useRef()
 
      const [ searchResults, setSearchResults ] = useState([])
+     const [searchParams, setSearchParams] = useSearchParams();
 
      useEffect(() => {
-          performSearch()
+          let query = searchParams.get("query")
+          if(query){
+               searchInputRef.current.value = query
+               performSearch( null, query )
+          }else{
+               performSearch()
+          }
      }, [])
 
-     function performSearch() {
+     function performSearch( event, query=null ) {
+          let value = (query?query:searchInputRef.current.value)
           ApiUtil.getAPI(
-               "/api/v1/search?query=" + searchInputRef.current.value,
+               "/api/v1/search?query=" + value,
                (body, response) => {
                     setSearchResults( body.data )
                }
@@ -46,6 +54,9 @@ export default function Search() {
                               <ProfileCard user={user} index={index} key={index} />
                          )
                     } )}
+                    {searchResults.length==0 && (
+                         <h3>No results</h3>
+                    )}
                </div>
           </div>
      )

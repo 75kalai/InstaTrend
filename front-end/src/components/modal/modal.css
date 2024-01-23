@@ -16,13 +16,15 @@
 
      &>.modal {
           min-width: 300px;
-          /* min-height: 350px; */
+          max-height: 95vh;
           background-color: rgba(0, 0, 0, 0.35);
           backdrop-filter: blur(25px);
           border-radius: 15px;
           overflow: hidden;
           position: relative;
           border: 2px solid #444;
+          display: flex;
+          flex-direction: column;
 
           &>.header {
                height: 60px;
@@ -60,7 +62,8 @@
 
           &>.modal-content {
                padding: 30px 20px;
-
+               overflow-y: auto;
+               height: calc( 100% - 60px );
           }
      }
 }

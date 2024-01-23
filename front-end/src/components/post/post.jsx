@@ -258,7 +258,7 @@ export default function Post({ post, setPost }) {
                               type="text" 
                               readOnly 
                               ref={shareLinkTextRef}
-                              value={`${process.env.REACT_APP_FRONTEND_URL}/post/${post.content.postID}`}  
+                              value={`${window.location.origin}/post/${post.content.postID}`}  
                          />
                          <div className="btn btn-primary" onClick={copyPostURL}>Copy link</div>
                     </div>

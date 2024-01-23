@@ -1,8 +1,11 @@
 require('dotenv').config();
 const express = require('express')
+const path = require('path');
+
 const app = express();
 const cors = require('cors')
 
+const mongoose = require('./database')
 var session = require('express-session');
 const sessionStore = require('./database/mongoStore')
 const { v4: uuidv4 } = require('uuid');
@@ -25,8 +28,9 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json())
 
+app.use(express.static(path.join(__dirname, 'build')));
 app.get("/", (req, res) => {
-     res.send("Backend Server is alive");
+     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
 app.use(session(
@@ -66,7 +70,8 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(process.env.PORT, () => {
-     console.log("Backend live at http://localhost:" + process.env.PORT)
+     console.log("Node server is running at port:" + process.env.PORT)
+     console.log('Mongo DB connection status : ',mongoose.connection.readyState);
 })
 
 module.exports = {

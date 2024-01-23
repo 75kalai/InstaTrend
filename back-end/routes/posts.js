@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
                } else {
                     // STORE SUCCESS !
                     let files = req.files.media;
-                    if (files == undefined && req.fileValidationError) {
+                    if (files == undefined || req.fileValidationError) {
                          console.log('FILE VALIDATION ERROR', req.fileValidationError);
                          return res.status(400).json(responseUtil.constructFailureJson(4400, null, {message:req.fileValidationError}))
                     }

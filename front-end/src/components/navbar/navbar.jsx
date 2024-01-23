@@ -7,11 +7,12 @@ import {
      IoMenuOutline
 } from 'react-icons/io5';
 import { TbUserSquareRounded } from "react-icons/tb";
-import Logo from "../logo/logo"
 import { useContext, useState, useRef } from 'react';
 import { AppContext } from '../../App';
 import { useLocation } from 'react-router-dom';
 import { PopupMenu, PopupMenuList} from '../popup-menu/popupMenu';
+import logo from '../../assets/logo.png'
+import logoIcon from '../../assets/logo-favicon.png'
 
 export default function Navbar() {
 
@@ -25,7 +26,8 @@ export default function Navbar() {
      return (
           <div className="navbar">
                <div className="top">
-                    <Logo />
+                    <img className="logo-full" src={logo} alt="logo" />
+                    <img className="logo-icon" src={logoIcon} alt="logo" />
                </div>
                <div className="middle">
                     <Link to="/" className={"list " + (location.pathname === '/' ? 'current-tab' : '')}>
