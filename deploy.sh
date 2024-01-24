@@ -3,14 +3,14 @@
 # Deploy script for MERN stack project
 
 # Step 1: Navigate to the frontend folder and build React app
-npm i -g node-prune
+curl -sf https://gobinaries.com/tj/node-prune | sh
 
 echo "Step 1: Building React app"
 cd front-end
 npm install --production
 modclean -r
 node-prune
-npm run build
+npm run build --prod
 
 # Step 2: Move build to the backend's public folder
 echo "Step 2: Moving build to backend's public folder"
