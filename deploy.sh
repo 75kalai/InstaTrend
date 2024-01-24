@@ -3,10 +3,13 @@
 # Deploy script for MERN stack project
 
 # Step 1: Navigate to the frontend folder and build React app
+npm i -g node-prune
+
 echo "Step 1: Building React app"
 cd front-end
 npm install --production
 modclean -r
+node-prune
 npm run build
 
 # Step 2: Move build to the backend's public folder
@@ -18,10 +21,12 @@ echo "Step 3: Deploying backend"
 cd ../back-end
 npm install --production
 modclean -r
+node-prune
 
 # Step 4: Start the production server
 echo "Step 4: Starting production server"
 modclean -r
+node-prune
 npm start
 
 echo "Deployment complete"
