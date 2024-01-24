@@ -17,10 +17,5 @@
     "multer-s3": "^3.0.1",
     "node": "^21.1.0",
     "uuid": "^9.0.1"
-  },
-  "scripts": {
-    "dev": "nodemon app.js",
-    
-    "start": "node app.js "
   }
 }
