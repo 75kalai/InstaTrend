@@ -2,12 +2,15 @@
 
 # Deploy script for MERN stack project
 
+# Step 0: Install pruning packages
+go get github.com/tj/node-prune
+# curl -sf https://gobinaries.com/tj/node-prune | sh
+
 # Step 1: Navigate to the frontend folder and build React app
-curl -sf https://gobinaries.com/tj/node-prune | sh
 
 echo "Step 1: Building React app"
 cd front-end
-npm install --production
+npm install --omit=dev
 modclean -r
 node-prune
 npm run build --prod
@@ -19,7 +22,7 @@ mv build ../back-end/
 # Step 3: Navigate to the backend folder
 echo "Step 3: Deploying backend"
 cd ../back-end
-npm install --production
+npm install --omit=dev
 modclean -r
 node-prune
 
