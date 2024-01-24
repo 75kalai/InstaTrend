@@ -12,7 +12,7 @@ echo "Step 1: Building React app"
 cd front-end
 # npm install --omit=dev
 # npm ci --only=production
-yarn install
+yarn install --prod --flat --no-optional
 modclean -r
 node-prune
 npm run build
@@ -26,7 +26,7 @@ echo "Step 3: Deploying backend"
 cd ../back-end
 # npm install --omit=dev
 # npm ci --only=production
-yarn install
+yarn install --prod --flat --no-optional
 modclean -r
 node-prune
 
