@@ -11,7 +11,8 @@ go get github.com/tj/node-prune
 echo "Step 1: Building React app"
 cd front-end
 # npm install --omit=dev
-npm ci --only=production
+# npm ci --only=production
+yarn install
 modclean -r
 node-prune
 npm run build
@@ -24,7 +25,8 @@ mv build ../back-end/
 echo "Step 3: Deploying backend"
 cd ../back-end
 # npm install --omit=dev
-npm ci --only=production
+# npm ci --only=production
+yarn install
 modclean -r
 node-prune
 
