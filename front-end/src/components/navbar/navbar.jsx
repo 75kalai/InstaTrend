@@ -68,8 +68,8 @@ export default function Navbar() {
                          <h4 className="label">Settings</h4>
                     </div>
                     <PopupMenu elementRef={settingsRef} isOpen={togglePopupMenu} onClose={ ()=>{setTogglePopupMenu()} } >
-                         <PopupMenuList>Switch Appearence</PopupMenuList>
-                         <PopupMenuList>Settings</PopupMenuList>
+                         <PopupMenuList>Switch Appearence*</PopupMenuList>
+                         <PopupMenuList>Settings*</PopupMenuList>
                          <PopupMenuList 
                               styling="log-out" 
                               callback={() => { appEnvironment.logOutUser() }}

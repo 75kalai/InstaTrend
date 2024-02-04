@@ -1,10 +1,4 @@
-#!/bin/bash
-
 # Deploy script for MERN stack project
-
-# Step 0: Install pruning packages
-go get github.com/tj/node-prune
-# curl -sf https://gobinaries.com/tj/node-prune | sh
 
 # Step 1: Navigate to the frontend folder and build React app
 
@@ -14,7 +8,6 @@ cd front-end
 # npm ci --only=production
 yarn install --prod #--flat --no-optional
 modclean -r
-node-prune
 npm run build
 
 # Step 2: Move build to the backend's public folder
@@ -28,12 +21,10 @@ cd ../back-end
 # npm ci --only=production
 yarn install --prod #--flat --no-optional
 modclean -r
-node-prune
 
 # Step 4: Start the production server
 echo "Step 4: Starting production server"
 modclean -r
-node-prune
 npm start
 
 echo "Deployment complete"

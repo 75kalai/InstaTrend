@@ -82,9 +82,6 @@ module.exports = {
                     }
                }
           )
-          console.log('-----------------------------------');
-          console.log('>>', response);
-          console.log('-----------------------------------');
           return response
      },
      savePost: async (postID, currentUserID)=>{

@@ -1,4 +1,4 @@
-// import { useContext } from "react";
+// import { useContext, useEffect } from "react";
 // import { AppContext } from '../App';
 
 const ContentType = {
@@ -41,10 +41,15 @@ function RequestServer(
                               }
                          } else if (response.status >= 400 && response.status < 500) {
                               // popup error code
-                              window.alert( data.message )
+                              if( !(window.location.pathname=="/" && path=="/api/v1/auth/me") ){
+                                   window.alert( data.message )
+                              }
                               if (data.code == 1004) {
                                    // User is not logged in
                                    // LOG OUT USER!
+                                   if(window.location.pathname!="/"){
+                                        window.location.pathname="/"
+                                   }
                               }
                          } else if (response.status >= 500 && response.status < 600) {
                               // popup again & retry after some time?

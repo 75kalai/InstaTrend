@@ -15,6 +15,7 @@ export default function PostViewer() {
      useEffect(() => {
           apiUtil.getAPI(`/api/v1/posts/${postID}`, (body, response) => {
                setPostDetails(body.data)
+               console.log('set');
           })
      }, [postID])
 
@@ -29,7 +30,7 @@ export default function PostViewer() {
                     </div>
                </div>
                <div className="content">
-                    <Post post={postDetails} setPost={setPostDetails} ></Post>
+                    <Post _post={postDetails} setPost={setPostDetails} ></Post>
                     {/* SHOW SUGGESTIONS ? */}
                </div>
           </div>

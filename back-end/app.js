@@ -22,16 +22,17 @@ const settingsRoute = require('./routes/settings')
 
 var corsOptions = {
      origin: process.env.FRONT_END_URL,
+     // origin:function (origin, callback){
+     //      console.log('CLIENT ORIGIN : ', origin);
+     //      callback(null, true)
+     // },
      optionsSuccessStatus: 200,
      credentials: true
 }
 app.use(cors(corsOptions));
+// app.use(cors());
 app.use(express.json())
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.get("/", (req, res) => {
-     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
 
 app.use(session(
      {
@@ -63,6 +64,12 @@ app.use('/api/v1/profile', profileRoute)
 app.use('/api/v1/feeds', feedsRoute)
 app.use('/api/v1/explore', exploreRoute)
 app.use('/api/v1/settings', settingsRoute)
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+app.get("*", (req, res) => {
+     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
 
 app.use((err, req, res, next) => {
      console.error("SERVER ERROR : ", err)

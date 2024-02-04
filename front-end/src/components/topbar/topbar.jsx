@@ -35,8 +35,8 @@ export default function Topbar() {
                          <IoMenuOutline/>
                     </div>
                     <PopupMenu elementRef={menuRef} isOpen={togglePopupMenu} onClose={ ()=>{setTogglePopupMenu()} } >
-                         <PopupMenuList>Switch Appearence</PopupMenuList>
-                         <PopupMenuList>Settings</PopupMenuList>
+                         <PopupMenuList>Switch Appearence*</PopupMenuList>
+                         <PopupMenuList>Settings*</PopupMenuList>
                          <PopupMenuList 
                               styling="log-out" 
                               callback={() => { appEnvironment.logOutUser() }}

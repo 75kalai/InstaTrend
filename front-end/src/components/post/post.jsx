@@ -9,8 +9,10 @@ import apiUtil from "../../util/apiUtil"
 import { AppContext } from '../../App';
 import UserList from '../userList/userList';
 import Modal from '../modal/modal'
+import { PopupMenu, PopupMenuList} from '../../components/popup-menu/popupMenu';
+import { useNavigate } from 'react-router-dom';
 
-export default function Post({ post, setPost }) {
+export default function Post({ _post }) {
 
      /* ----------------------------------------------------
           This input data value must be structured as below:
@@ -31,15 +33,23 @@ export default function Post({ post, setPost }) {
                }
           }
      ---------------------------------------------------- */
-
+     let [post, setPost] = useState(_post)
      let AppEnvironment = useContext(AppContext);
+     const navigate = useNavigate();
 
      const [likeState, setLikeState] = useState(false);
+     const [dblClickLikeState, setDblClickLikeState] = useState(false);
      const [bookMarkState, setBookMarkState] = useState(false);
      const [likesModalState, setLikesModalState] = useState(false)
      const [shareModalState, setShareModalState] = useState(false)
+     const [popupMenuState, setPopupMenuState] = useState(false)
 
+     const postOptionsRef = useRef()
      const shareLinkTextRef = useRef()
+
+     useEffect(() => {
+          setPost(_post)
+     }, [_post])
 
      useEffect(() => {
           if (post) {
@@ -127,7 +137,6 @@ export default function Post({ post, setPost }) {
                     null,
                     (body, response) => {
                          if (response.status == 200 && body.code == 0) {
-                              console.log('POST IS UNSAVED');
                               setBookMarkState(false);
                               setPost(body.data.postDetails)
                               AppEnvironment.refreshUserData(body.data.currentUserDetails)
@@ -140,7 +149,6 @@ export default function Post({ post, setPost }) {
                     null,
                     (body, response) => {
                          if (response.status == 200 && body.code == 0) {
-                              console.log('POST IS SAVED');
                               setBookMarkState(true);
                               setPost(body.data.postDetails)
                               AppEnvironment.refreshUserData(body.data.currentUserDetails)
@@ -150,18 +158,25 @@ export default function Post({ post, setPost }) {
           }
      }
 
-     function copyPostURL(){
+     function copyPostURL() {
           var copyText = shareLinkTextRef.current
 
           // Select the text field
           copyText.select();
           copyText.setSelectionRange(0, 99999); // For mobile devices
-        
-           // Copy the text inside the text field
+
+          // Copy the text inside the text field
           navigator.clipboard.writeText(copyText.value);
-        
+
      }
 
+     function handleDblClickPostContent(){
+          setDblClickLikeState(true)
+          toggleLikeState(); 
+          setTimeout(()=>{
+               setDblClickLikeState(false)
+          }, 1000)
+     }
      if (post == null) {
           return null;
      }
@@ -182,11 +197,11 @@ export default function Post({ post, setPost }) {
                               {computePostedTime(post.content.postedTime)}
                          </p>
                     </div>
-                    <div className="right icon">
+                    <div className="right icon" onClick={()=>{setPopupMenuState(true)}} ref={postOptionsRef}>
                          <SlOptions />
                     </div>
                </div>
-               <div className="post-content">
+               <div className="post-content" onDoubleClick={handleDblClickPostContent}>
                     <Splide>
                          {post.content.media.map((media, index) => {
                               return (
@@ -201,6 +216,11 @@ export default function Post({ post, setPost }) {
                               )
                          })}
                     </Splide>
+                    {dblClickLikeState && (
+                         <div className="heart-pound">
+                              <FaHeart className='red-heart-like' />
+                         </div>
+                    )}
                </div>
                <div className="actions">
                     <div className="left">
@@ -254,15 +274,26 @@ export default function Post({ post, setPost }) {
                     onClose={() => { setShareModalState(false) }}
                >
                     <div className="share-link">
-                         <input 
-                              type="text" 
-                              readOnly 
+                         <input
+                              type="text"
+                              readOnly
                               ref={shareLinkTextRef}
-                              value={`${window.location.origin}/post/${post.content.postID}`}  
+                              value={`${window.location.origin}/post/${post.content.postID}`}
                          />
                          <div className="btn btn-primary" onClick={copyPostURL}>Copy link</div>
                     </div>
                </Modal>
+               <PopupMenu
+                    elementRef={postOptionsRef}
+                    isOpen={popupMenuState}
+                    onClose={()=>setPopupMenuState(false)}
+               >
+                    <PopupMenuList callback={()=>{navigate( `/post/${post.content.postID}` )}}>
+                         View Post
+                    </PopupMenuList>
+                    <PopupMenuList>Report Post*</PopupMenuList>
+                    <PopupMenuList>Delete Post*</PopupMenuList>
+               </PopupMenu>
           </div>
      )
 }

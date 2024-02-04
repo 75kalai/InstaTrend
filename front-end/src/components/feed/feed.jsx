@@ -8,7 +8,7 @@ export default function Feed( props ){
           <div className="feed">
                {postsArray.map((postObj) => {
                     return (
-                         <Post post={postObj} key={crypto.randomUUID()} />
+                         <Post _post={postObj} key={crypto.randomUUID()} />
                     )
                })}
           </div>

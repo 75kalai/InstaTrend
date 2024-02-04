@@ -99,9 +99,7 @@ router.get('/me', verifyAuth, async (req, res) => {
           ))
      }else{
           // auth exists, but record not exists?
-          res.status(404).json( responseUtil.constructFailureJson(
-               `User details not found`
-          ) )
+          res.status(404).json( responseUtil.constructFailureJson(1004) )
      }
 
 });
